@@ -1,0 +1,5 @@
+.env
+agentgateway-config/data.db
+agentgateway-config/data.db-shm
+agentgateway-config/data.db-wal
+agentgateway-config/config.yaml.bak

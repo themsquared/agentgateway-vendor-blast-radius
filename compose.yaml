@@ -1,0 +1,22 @@
+services:
+  mock-vendor:
+    build: ./mock-vendor
+    container_name: vendor-blast-radius-mock-vendor
+    environment:
+      - MOCK_VENDOR_API_KEY=${MOCK_VENDOR_API_KEY}
+    expose:
+      - "8080"
+
+  agentgateway:
+    image: cr.agentgateway.dev/agentgateway:v1.7.0
+    container_name: vendor-blast-radius-agentgateway
+    restart: unless-stopped
+    depends_on:
+      - mock-vendor
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      - MOCK_VENDOR_API_KEY=${MOCK_VENDOR_API_KEY}
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./agentgateway-config:/config

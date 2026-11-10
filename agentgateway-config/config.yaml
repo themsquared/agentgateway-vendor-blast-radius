@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://agentgateway.dev/schema/config
+config:
+  database:
+    url: sqlite:///config/data.db
+
+gateways:
+  default:
+    port: 4000
+
+ui:
+  gateways: default
+
+llm:
+  models:
+    - name: "vendor/*"
+      provider:
+        custom:
+          formats:
+            - type: completions
+      params:
+        apiKey: "$MOCK_VENDOR_API_KEY"
+        model: vendor-chat-small
+        baseUrl: "http://mock-vendor:8080/v1"
